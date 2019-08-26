@@ -1,93 +1,48 @@
 import { createStore } from 'redux';
-
-const initialState = {
-  drink: [],
-  chips: [],
-  sandwich: []
-};
-
-function lunchReducer(state = initialState, action) {
-  switch(action.type) {
-    case 'ADD_DRINK':
-      return { ...state, drink: [...state.drink, action.payload] };
-    case 'ADD_CHIP':
-      return { ...state, chips: [...state.chip, action.payload] };
-    case 'ADD_SANDWICH':
-      return { ...state, sandwich: [...state.sandwich, action.payload] };
-    case 'REMOVE_DRINK':
-      return { ...state, drink: state.drink.filter(d => d !== action.payload) };
-    case 'REMOVE_CHIP':
-      return { ...state, chips: state.chips.filter(c => c !== action.payload) };
-    case 'REMOVE_SANDWICH':
-      return { ...state, sandwich: state.sandwich.filter(s => s !== action.payload) };
-    case 'EMPTY_BOX':
-      return { drink: [], chips: [], sandwich: [] };
-    default:
-      return state;
-  }
-}
+import {
+  ADD_DRINK,
+  addDrink,
+  ADD_CHIP,
+  addChip,
+  ADD_SANDWICH,
+  addSandwich,
+  REMOVE_DRINK,
+  removeDrink,
+  REMOVE_CHIP,
+  removeChip,
+  REMOVE_SANDWICH,
+  removeSandwich
+} from './action_play/lunch';
+import lunchReducer from './reducers/lunchReducer';
 
 const store = createStore(lunchReducer);
 
 //drinks
-store.dispatch({
-  type: 'ADD_DRINK',
-  payload: 'Coca Cola'
-});
-store.dispatch({
-  type: 'ADD_DRINK',
-  payload: 'Water'
-});
+store.dispatch(addDrink('Coca Cola'));
+store.dispatch(addDrink('Water'));
 console.log('add drink', store.getState());
 
-store.dispatch({
-  type: 'REMOVE_DRINK',
-  payload: 'Coca Cola'
-});
+store.dispatch(removeDrink('Water'));
 console.log('remove drink', store.getState());
 
-//chips
-store.dispatch({
-  type: 'ADD_CHIP',
-  payload: 'Dorito'
-});
-store.dispatch({
-  type: 'ADD_CHIP',
-  payload: 'Pringles'
-});
-store.dispatch({
-  type: 'ADD_CHIP',
-  payload: 'Waves'
-});
+//chip
+store.dispatch(addChip('Doritos'));
+store.dispatch(addChip('Pringles'));
+store.dispatch(addChip('Waves'));
 console.log('add chips', store.getState());
 
-store.dispatch({
-  type: 'REMOVE_CHIP',
-  payload: 'Dorito'
-});
+store.dispatch(removeChip('Waves'));
 console.log('remove chips', store.getState());
 
 
 //sandwich
 
-store.dispatch({
-  type: 'ADD_SANDWICH',
-  payload: 'Turkey Ruben'
-});
-store.dispatch({
-  type: 'ADD_SANDWICH',
-  payload: 'BLT'
-});
-store.dispatch({
-  type: 'ADD_SANDWICH',
-  payload: 'Grilled Cheese'
-});
+store.dispatch(addSandwich('Turkey'));
+store.dispatch(addSandwich('BLT'));
+store.dispatch(addSandwich('Grilled Cheese'));
 console.log('add sandwich', store.getState());
 
-store.dispatch({
-  type: 'REMOVE_SANDWICH',
-  payload: 'Turkey Ruben'
-});
+store.dispatch(removeSandwich('BLT'));
 console.log('remove sandwich', store.getState());
 
 store.dispatch({
